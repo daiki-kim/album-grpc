@@ -81,7 +81,7 @@ func callGetTotalAmount(client pb.AlbumServiceClient) {
 			log.Fatalf("client.GetTotalAmount: stream.Send(%s) failed: %v", title, err)
 		}
 
-		time.Sleep(timeSleep)
+		time.Sleep(timeSleep) // 動作確認用
 	}
 
 	resp, err := stream.CloseAndRecv()
@@ -134,7 +134,7 @@ func callUploadAndNotify(client pb.AlbumServiceClient) {
 			log.Fatalf("client.UploadAndNotify: stream.Send(%v) failed: %v", album, err)
 		}
 
-		time.Sleep(timeSleep)
+		time.Sleep(timeSleep) // 動作確認用
 	}
 
 	if err := stream.CloseSend(); err != nil {
