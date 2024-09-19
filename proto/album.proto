@@ -4,50 +4,51 @@ package album;
 
 option go_package = "./pb";
 
+// GetAlbumのリクエストとレスポンス
 message GetAlbumRequest {
 	string title = 1;
 }
-
 message GetAlbumResponse {
 	Album album = 1;
 }
 
+// ListAlbumsのリクエストとレスポンス
 message ListAlbumsRequest {
 	string artist = 1;
 }
-
 message ListAlbumsResponse {
 	Album album = 1;
 }
 
+// GetTotalAmountのリクエストとレスポンス
 message GetTotalAmountRequest {
 	string title = 1;
 }
-
 message GetTotalAmountResponse {
 	int32 album_count = 1;
 	float total_amount = 2;
 	string message = 3;
 }
 
+// UploadAndNotifyのリクエストとレスポンス
 message UploadAndNotifyRequest {
 	Album album = 1;
 }
-
 message UploadAndNotifyResponse {
 	string message = 1;
 }
 
+// Albumの定義
 message Album {
-	string id = 1;
-	string title = 2;
-	string artist = 3;
-	float price = 4;
+	string title = 1;
+	string artist = 2;
+	float price = 3;
 }
 
+// Album serviceを定義
 service AlbumService {
-	rpc GetAlbum (GetAlbumRequest) returns (GetAlbumResponse);
-	rpc ListAlbums (ListAlbumsRequest) returns (stream ListAlbumsResponse);
-	rpc GetTotalAmount (stream GetTotalAmountRequest) returns (GetTotalAmountResponse);
-	rpc UploadAndNotify (stream UploadAndNotifyRequest) returns (stream UploadAndNotifyResponse);
+	rpc GetAlbum (GetAlbumRequest) returns (GetAlbumResponse); // Unary RPC (1つのリクエストと1つのレスポンスを返す)
+	rpc ListAlbums (ListAlbumsRequest) returns (stream ListAlbumsResponse); // Server streaming RPC (1つのリクエストと複数のレスポンスを返す)
+	rpc GetTotalAmount (stream GetTotalAmountRequest) returns (GetTotalAmountResponse); // Client streaming RPC (複数のリクエストと1つのレスポンスを返す)
+	rpc UploadAndNotify (stream UploadAndNotifyRequest) returns (stream UploadAndNotifyResponse); // Bidirectional streaming RPC (複数のリクエストと複数のレスポンスを返す)
 }
